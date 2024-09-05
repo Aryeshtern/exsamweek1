@@ -271,3 +271,60 @@ let militaryUnit = {
   },
 
 };
+
+function Mission1(unit) {
+  let chief = unit.commandStructure.chiefOfStaff;
+  return `${chief.rank}, ${chief.name}, ${chief.contact.phone}`;
+}
+//console.log(Mission1(militaryUnit));
+
+function Mission2(unit) {
+  return "we have " + unit.personnel.length  + " soldiers in our unit"; ;
+}
+//console.log(Mission2(militaryUnit));
+
+function newhistoryItem(unit, currentDeployment) {
+
+  unit.history.push({
+    eventDate: currentDeployment.startDate,
+    eventDescription: `Participated in ${currentDeployment.mission} in ${currentDeployment.location} between the dates ${currentDeployment.startDate} and ${currentDeployment.estimatedEndDate}.`,
+  });
+  return unit;
+}
+
+function Mission3(unit, newDeployment) {
+  
+
+  let updatedUnit = newhistoryItem(unit, unit.currentDeployment);
+  updatedUnit.currentDeployment = newDeployment;
+  return updatedUnit;
+}
+
+//console.log(Mission3(militaryUnit, {location: "Europe", mission: "Defense", startDate: "2025-01-01", estimatedEndDate: "2025-12-31"}));
+
+function Mission4(unit, FirearmObject){
+  if(isFirearmAlreadyExsist(unit.equipment.firearms, FirearmObject)){
+    unit.equipment.firearms.push(FirearmObject);
+    return unit;
+  }
+}
+
+//console.log(Mission4(militaryUnit, {type: "AK-47", quantity: 100, status: "Operational"}));
+
+function isFirearmAlreadyExsist(firearms, newFirearm){
+  for(let firearm of firearms){
+    if(firearm.type === newFirearm.type && firearm.status === newFirearm.status){
+      return true;
+    }
+  }
+  return false;
+}
+
+function Mission5(unit){
+
+  let totalWeeks = unit.trainingPrograms.map(prgramm=> prgramm.duration).reduce((total, duration) => total + duration);
+  return totalWeeks;
+}
+
+//console.log(Mission5(militaryUnit));
+
